@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Felipe Lourenzo - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Google-inspired CSS Variables */
+        :root {
+            --color-primary: #1a73e8;
+            --color-secondary: #fbbc05;
+            --color-accent: #34a853;
+            --color-text-dark: #202124;
+            --color-text-light: #5f6368;
+            --color-background-light: #ffffff;
+            --color-background-dark: #f8f9fa;
+            --color-border: #dadce0;
+            --shadow-light: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+        }
+
+        /* Base Reset & Typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--color-text-dark);
+            background-color: var(--color-background-light);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text-dark);
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.25rem; }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--color-text-light);
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .section-padding {
+            padding: 4rem 0;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .primary-btn {
+            background-color: var(--color-primary);
+            color: var(--color-background-light);
+            border: none;
+        }
+
+        .primary-btn:hover {
+            background-color: #1669d0;
+            transform: translateY(-2px);
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(26, 115, 232, 0.3);
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--color-background-light);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-light);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        .main-nav .nav-list {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .main-nav .nav-list a {
+            color: var(--color-text-light);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .main-nav .nav-list a:hover {
+            color: var(--color-primary);
+            background-color: rgba(26, 115, 232, 0.1);
+            text-decoration: none;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-toggle .icon-bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-text-dark);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--color-background-dark) 0%, #e8f0fe 100%);
+            text-align: center;
+            padding: 6rem 0;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--color-text-dark);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-section .lead-text {
+            font-size: 1.25rem;
+            margin: 0 auto 2rem;
+            color: var(--color-text-light);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero-section .btn {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Card Style */
+        .card {
+            background-color: var(--color-background-light);
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--color-border);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(60,64,67,0.15);
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: var(--color-background-light);
+            text-align: center;
+        }
+
+        .about-section p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Experience Section */
+        .experience-section {
+            background-color: var(--color-background-dark);
+            text-align: center;
+        }
+
+        .experience-section h3 {
+            margin: 3rem 0 1.5rem 0;
+            font-size: 1.75rem;
+            color: var(--color-text-dark);
+            position: relative;
+        }
+
+        .experience-section h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .experience-section h3::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+
+        .experience-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+            font-size: 1.3rem;
+        }
+
+        .experience-item .role {
+            font-weight: 600;
+            color: var(--color-text-dark);
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .experience-item .summary {
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .company-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            background-color: rgba(26, 115, 232, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .company-link:hover {
+            background-color: var(--color-primary);
+            color: white;
+            text-decoration: none;
+            transform: scale(1.05);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            background-color: var(--color-background-light);
+            text-align: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category h3 {
+            color: var(--color-text-dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .skill-category h3::after {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--color-accent);
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .skill-category ul {
+            text-align: left;
+            padding-left: 0;
+        }
+
+        .skill-category li {
+            margin-bottom: 0.8rem;
+            color: var(--color-text-light);
+            position: relative;
+            padding-left: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .skill-category li::before {
+            content: '●';
+            color: var(--color-accent);
+            font-size: 1.2em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .skill-category li:hover {
+            color: var(--color-primary);
+        }
+
+        /* Footer & Contact */
+        .footer-section {
+            background: linear-gradient(135deg, var(--color-text-dark) 0%, #1a1a1a 100%);
+            color: var(--color-background-light);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-section h2 {
+            color: var(--color-background-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p {
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            margin: 2rem 0;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.8rem;
+            color: #b0b0b0;
+            font-size: 1.1rem;
+        }
+
+        .contact-info a {
+            color: #7baef2;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #a8c7f7;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #707070;
+            border-top: 1px solid #333;
+            padding-top: 1.5rem;
+        }
+
+        /* Mobile-First Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.3rem; }
+            h4 { font-size: 1.1rem; }
+
+            .section-padding {
+                padding: 3rem 0;
+            }
+
+            .hero-section {
+                padding: 4rem 0;
+                min-height: 60vh;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section .lead-text {
+                font-size: 1.1rem;
+            }
+
+            /* Mobile Navigation */
+            .menu-toggle {
+                display: flex;
+            }
+
+            .main-nav .nav-list {
+                display: none;
+                flex-direction: column;
+                background-color: var(--color-background-light);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                box-shadow: var(--shadow-light);
+                border-top: 1px solid var(--color-border);
+                padding: 1rem 0;
+                gap: 0;
+            }
+
+            .main-nav .nav-list.active {
+                display: flex;
+            }
+
+            .main-nav .nav-list li {
+                text-align: center;
+                margin: 0;
+            }
+
+            .main-nav .nav-list a {
+                padding: 1rem;
+                display: block;
+                width: 100%;
+                margin: 0;
+            }
+
+            .experience-grid, .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .experience-section h3 {
+                margin-top: 2rem;
+                font-size: 1.5rem;
+            }
+
+            .card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .hero-section .lead-text {
+                font-size: 1rem;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Felipe Lourenzo</a>
+            <nav class="main-nav">
+                <button class="menu-toggle" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul class="nav-list">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Hi, I'm Felipe Lourenzo</h1>
+                    <p class="lead-text">A Product Manager, Web Designer, and AI Developer passionate about creating innovative digital solutions that bridge technology and user experience.</p>
+                    <a href="#contact" class="btn primary-btn">Let's Connect</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section section-padding">
+            <div class="container">
+                <h2>About Me</h2>
+                <p>I am a versatile <strong>Product Manager</strong>, <strong>Web Designer</strong>, and <strong>AI Developer</strong> with a passion for creating innovative digital solutions. I have a proven track record of leading cross-functional teams, designing user-centric experiences, and developing cutting-edge AI-powered products. My expertise lies in bridging the gap between design, technology, and business strategy to deliver impactful products that solve real-world problems.</p>
+            </div>
+        </section>
+
+        <section id="experience" class="experience-section section-padding">
+            <div class="container">
+                <h2>Experience</h2>
+
+                <h3>Product Management & AI Development</h3>
+                <div class="experience-grid">
+                    <div class="experience-item card">
+                        <h4>Blip.ai</h4>
+                        <p class="role">Product Manager</p>
+                        <p class="summary">Managed the product lifecycle for an AI-powered conversational platform, focusing on enhancing chatbot capabilities and improving the developer experience. Led initiatives that increased user engagement by 40% and reduced implementation time for new clients.</p>
+                        <a href="https://www.blip.ai/en/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Yalo</h4>
+                        <p class="role">Product Manager</p>
+                        <p class="summary">Led the development of conversational commerce solutions that leverage AI to automate sales and customer support on messaging apps. Drove product strategy for WhatsApp Business integration, resulting in 25% increase in conversion rates.</p>
+                        <a href="https://www.yalo.com/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Zenvia</h4>
+                        <p class="role">AI Developer</p>
+                        <p class="summary">Developed and implemented AI models to improve customer communication platforms, specifically in areas like natural language understanding and sentiment analysis. Built machine learning pipelines that processed over 1M messages daily.</p>
+                        <a href="https://www.zenvia.com/en/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Omnichat</h4>
+                        <p class="role">Product Manager</p>
+                        <p class="summary">Drove the product strategy for an omnichannel marketing platform, integrating AI to personalize customer interactions across multiple channels. Implemented predictive analytics features that improved campaign performance by 35%.</p>
+                        <a href="https://www.omnichat.ai/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                </div>
+
+                <h3>Web Design & Development</h3>
+                <div class="experience-grid">
+                    <div class="experience-item card">
+                        <h4>Natura</h4>
+                        <p class="role">Web Designer</p>
+                        <p class="summary">Responsible for designing and optimizing the user interface and user experience of the e-commerce website, contributing to increased sales and customer engagement. Redesigned checkout flow, reducing cart abandonment by 20%.</p>
+                        <a href="https://www.natura.com.br/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Bradesco</h4>
+                        <p class="role">Web Designer</p>
+                        <p class="summary">Worked on the design and development of digital banking interfaces, focusing on creating a seamless and secure user experience for mobile and web applications. Improved accessibility standards across all digital touchpoints.</p>
+                        <a href="https://banco.bradesco/html/classic/index.shtm" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Intelbras</h4>
+                        <p class="role">Web Designer & Developer</p>
+                        <p class="summary">Developed and maintained the company's corporate website and product pages, ensuring a clean and intuitive navigation flow for diverse audiences. Implemented responsive design principles, improving mobile traffic by 45%.</p>
+                        <a href="https://www.intelbras.com/en/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Outback</h4>
+                        <p class="role">Web Designer</p>
+                        <p class="summary">Designed and updated the website to promote new menu items and special offers, enhancing the digital presence and brand identity. Created interactive menu experiences that increased online orders by 30%.</p>
+                        <a href="https://www.outback.com.br/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>McGarryBowen & Dux</h4>
+                        <p class="role">Project Manager & Frontend Developer</p>
+                        <p class="summary">Led e-commerce implementation projects and mobile app development. Managed the Natura e-commerce platform, Fundação Vanzolini EAD system, and Caixa Econômica website implementation. Collaborated on Bradesco mobile app redesign using modern frontend technologies.</p>
+                        <a href="https://mcgarrybowen.com/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Hive Marketing Technology</h4>
+                        <p class="role">Project Manager & Developer</p>
+                        <p class="summary">Managed BR Malls project development and led the creation of Outback's chatbot and website enhancement. Developed mobile applications for Eucatex and Ambev, focusing on user experience optimization and performance improvements.</p>
+                        <a href="#" target="_blank" class="company-link">Company Profile</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Access Holding (FinTech)</h4>
+                        <p class="role">Strategic Consultant & Developer</p>
+                        <p class="summary">Created market launch strategy and identified growth opportunities in the Brazilian market. Developed digital solutions and implemented frontend technologies to support business expansion and customer acquisition initiatives.</p>
+                        <a href="#" target="_blank" class="company-link">Company Profile</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Alhambra IT</h4>
+                        <p class="role">Digital Marketing Manager & Developer</p>
+                        <p class="summary">Led the launch of Cloud and Cybersecurity solutions in the Brazilian market. Developed lead generation systems, built sales funnels, and implemented paid media campaigns. Created responsive web solutions to support marketing initiatives.</p>
+                        <a href="#" target="_blank" class="company-link">Company Profile</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Caixa Econômica Federal</h4>
+                        <p class="role">Frontend Developer</p>
+                        <p class="summary">Implemented and optimized the institutional website, focusing on accessibility and user experience for Brazil's largest public bank. Developed responsive interfaces using HTML, CSS, JavaScript, and Bootstrap framework to serve millions of users.</p>
+                        <a href="https://www.caixa.gov.br/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                    <div class="experience-item card">
+                        <h4>Fundação Vanzolini</h4>
+                        <p class="role">Frontend Developer</p>
+                        <p class="summary">Developed and maintained the EAD (Distance Learning) platform, creating intuitive interfaces for online education. Implemented e-commerce optimization features and responsive design using Drupal CMS and modern web technologies.</p>
+                        <a href="https://www.vanzolini.org.br/" target="_blank" class="company-link">Visit Website</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills-section section-padding">
+            <div class="container">
+                <h2>Skills & Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-category card">
+                        <h3>Product Management</h3>
+                        <ul>
+                            <li>Agile/Scrum Methodologies</li>
+                            <li>Product Roadmap Planning</li>
+                            <li>Market Research & Analysis</li>
+                            <li>User Stories & Acceptance Criteria</li>
+                            <li>A/B Testing & Experimentation</li>
+                            <li>Data Analytics & KPI Tracking</li>
+                            <li>Stakeholder Management</li>
+                            <li>Team Leadership</li>
+                            <li>Marketing Strategy</li>
+                            <li>Project Implementation</li>
+                            <li>Marketing Campaigns</li>
+                            <li>Lead Generation</li>
+                            <li>Sales Funnel Development</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category card">
+                        <h3>Web Design & Development</h3>
+                        <ul>
+                            <li>UI/UX Design Principles</li>
+                            <li>Figma, Sketch, Adobe XD</li>
+                            <li>HTML5, CSS3, JavaScript</li>
+                            <li>Bootstrap Framework</li>
+                            <li>Drupal CMS</li>
+                            <li>Responsive Web Design</li>
+                            <li>Frontend Development</li>
+                            <li>E-commerce Optimization</li>
+                            <li>Web Content Writing</li>
+                            <li>Design Systems & Style Guides</li>
+                            <li>User Research & Testing</li>
+                            <li>SEO Optimization</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category card">
+                        <h3>AI Development</h3>
+                        <ul>
+                            <li>Machine Learning & Deep Learning</li>
+                            <li>Natural Language Processing (NLP)</li>
+                            <li>Python, TensorFlow, PyTorch</li>
+                            <li>Conversational AI & Chatbots</li>
+                            <li>Computer Vision</li>
+                            <li>MLOps & Model Deployment</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category card">
+                        <h3>Tools & Technologies</h3>
+                        <ul>
+                            <li>Jira, Confluence, Trello</li>
+                            <li>Google Analytics & Tag Manager</li>
+                            <li>Git Version Control</li>
+                            <li>AWS Cloud Services</li>
+                            <li>Docker & Kubernetes</li>
+                            <li>SQL & NoSQL Databases</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="footer-section">
+        <div class="container">
+            <h2>Let's Connect</h2>
+            <p>I'm always open to new opportunities and collaborations. Whether you're looking for a product manager, need AI expertise, or want to discuss innovative digital solutions, I'd love to hear from you!</p>
+            <div class="contact-info">
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/felipelj" target="_blank">linkedin.com/in/felipelj</a></p>
+                <p><strong>GitHub:</strong> <a href="https://github.com/felipejac" target="_blank">github.com/felipejac</a></p>
+            </div>
+            <p class="copyright">&copy; <span id="current-year">2025</span> Felipe Lourenzo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+
+                    // Close mobile menu after clicking a link
+                    const navList = document.querySelector('.main-nav .nav-list');
+                    if (navList.classList.contains('active')) {
+                        navList.classList.remove('active');
+                    }
+                });
+            });
+
+            // Toggle mobile menu
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navList = document.querySelector('.main-nav .nav-list');
+
+            if (menuToggle && navList) {
+                menuToggle.addEventListener('click', () => {
+                    navList.classList.toggle('active');
+                    
+                    // Animate hamburger menu
+                    const iconBars = menuToggle.querySelectorAll('.icon-bar');
+                    if (navList.classList.contains('active')) {
+                        iconBars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                        iconBars[1].style.opacity = '0';
+                        iconBars[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                    } else {
+                        iconBars[0].style.transform = 'none';
+                        iconBars[1].style.opacity = '1';
+                        iconBars[2].style.transform = 'none';
+                    }
+                });
+            }
+
+            // Update current year in footer
+            const currentYearSpan = document.getElementById('current-year');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Add scroll effect to header
+            let lastScrollTop = 0;
+            const header = document.querySelector('header');
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scrolling down
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up
+                    header.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe cards for animation
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
